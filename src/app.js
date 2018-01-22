@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Route } from 'react-router-dom'
 import Initializer from './bootstrap/initializer'
 import Home from './containers/home'
-import './app.scss'
+import './app.css'
 
 const App = ({ store, history }) => (
   <Initializer>
