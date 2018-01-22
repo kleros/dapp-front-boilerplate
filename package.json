@@ -49,6 +49,7 @@
     "kleros-api": "^0.0.49",
     "normalize.css": "^7.0.0",
     "react": "^16.2.0",
+    "react-blockies": "^1.2.2",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",

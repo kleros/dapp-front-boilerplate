@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { balanceActions } from '../../actions'
 import { balanceSelectorsShapes } from '../../reducers'
 import { renderIf } from '../../utils'
+import { Identicon } from '../../components'
+import './balance.css'
 
 class Balance extends PureComponent {
   static propTypes = {
@@ -26,18 +28,35 @@ class Balance extends PureComponent {
     const { loadingBalance, balance, failedFetchingBalance } = this.props
 
     return (
-      <div>
-        <b>Hello CryptoWorld</b>
+      <div className="Balance">
+        <div className="Balance-message">
+          <b>Hello CryptoWorld</b>
+        </div>
         <br />
         <br />
-        <b>
+        <div className="Balance-message">
           {renderIf([loadingBalance], [balance], [failedFetchingBalance], {
             loading: 'loading...',
-            done: `You have ${balance} ETH.`,
-            failed:
-              'There was an error fetching your balance. Make sure MetaMask is unlocked and refresh the page.'
+            done: (
+              <span>
+                Welcome <Identicon seed="Placeholder" />, You have{' '}
+                {balance && balance.toString()} ETH.
+              </span>
+            ),
+            failed: (
+              <span>
+                'There was an error fetching your balance. Make sure{' '}
+                <a
+                  className="Balance-message-link"
+                  href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                >
+                  MetaMask
+                </a>{' '}
+                is unlocked and refresh the page.'
+              </span>
+            )
           })}
-        </b>
+        </div>
       </div>
     )
   }

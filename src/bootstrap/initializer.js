@@ -30,7 +30,7 @@ class Initializer extends PureComponent {
 
     if (!isWeb3Loaded) return <RequiresMetaMask />
     if (!isWeb3Unlocked) return <RequiresMetaMask needsUnlock />
-    return <div>{children}</div>
+    return children
   }
 }
 

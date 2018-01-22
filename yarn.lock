@@ -8334,6 +8334,12 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-blockies@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-blockies/-/react-blockies-1.2.2.tgz#36f2a1aa8b1e43012d0007396b3d0ac83e21807f"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-color@^2.11.4:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.13.8.tgz#bcc58f79a722b9bfc37c402e68cd18f26970aee4"
