@@ -40,12 +40,12 @@ export function renderIf(
   failedValues,
   { loading, done, failed }
 ) {
-  if (loadingValues.some(v => v)) return loading
   if (
     failedValues.some(v => v) ||
     !values.every(v => v !== null && v !== undefined)
   )
     return failed
+  if (loadingValues.some(v => v)) return loading
 
   return done
 }

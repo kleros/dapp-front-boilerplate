@@ -1,37 +1,59 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { walletActions } from '../actions'
+import { walletSelectors } from '../reducers'
 import { eth } from './kleros'
+import { renderIf } from '../utils'
 import { RequiresMetaMask } from '../components'
 
 class Initializer extends PureComponent {
   static propTypes = {
+    loadingAccounts: PropTypes.bool.isRequired,
+    account: walletSelectors.accountShape,
+    failedFetchingAccounts: PropTypes.bool.isRequired,
+    fetchAccounts: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired
   }
 
-  state = {
-    isWeb3Loaded: false,
-    isWeb3Unlocked: false
+  static defaultProps = {
+    account: null
   }
 
-  async componentWillMount() {
-    let accounts = []
+  state = { isWeb3Loaded: eth.accounts !== undefined }
 
-    if (eth.accounts !== undefined) {
-      this.setState({ isWeb3Loaded: true })
-      accounts = await eth.accounts()
-    }
-
-    if (accounts.length !== 0) this.setState({ isWeb3Unlocked: true })
+  componentDidMount() {
+    const { fetchAccounts } = this.props
+    fetchAccounts()
   }
 
   render() {
-    const { isWeb3Loaded, isWeb3Unlocked } = this.state
-    const { children } = this.props
+    const { isWeb3Loaded } = this.state
+    const {
+      children,
+      loadingAccounts,
+      account,
+      failedFetchingAccounts
+    } = this.props
 
-    if (!isWeb3Loaded) return <RequiresMetaMask />
-    if (!isWeb3Unlocked) return <RequiresMetaMask needsUnlock />
-    return children
+    return renderIf(
+      [loadingAccounts],
+      [account],
+      [!isWeb3Loaded, failedFetchingAccounts],
+      {
+        loading: 'Loading accounts...',
+        done: children,
+        failed: <RequiresMetaMask needsUnlock={isWeb3Loaded} />
+      }
+    )
   }
 }
 
-export default Initializer
+export default connect(
+  state => ({
+    loadingAccounts: state.wallet.loadingAccounts,
+    account: walletSelectors.getAccount(state),
+    failedFetchingAccounts: state.wallet.failedFetchingAccounts
+  }),
+  { fetchAccounts: walletActions.fetchAccounts }
+)(Initializer)

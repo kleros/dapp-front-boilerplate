@@ -1,5 +1,5 @@
 // Import named
-import * as balanceActions from './balance'
+import * as walletActions from './wallet'
 
 // Export named
-export { balanceActions }
+export { walletActions }

@@ -9,8 +9,8 @@ import Balance from './containers/balance'
 import './app.css'
 
 const App = ({ store, history }) => (
-  <Initializer>
-    <Provider store={store}>
+  <Provider store={store}>
+    <Initializer>
       <ConnectedRouter history={history}>
         <div id="router-root">
           <Helmet>
@@ -21,8 +21,8 @@ const App = ({ store, history }) => (
           </Switch>
         </div>
       </ConnectedRouter>
-    </Provider>
-  </Initializer>
+    </Initializer>
+  </Provider>
 )
 
 App.propTypes = {

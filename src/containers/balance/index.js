@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { balanceActions } from '../../actions'
-import { balanceSelectorsShapes } from '../../reducers'
+import { walletActions } from '../../actions'
+import { walletSelectors } from '../../reducers'
 import { renderIf } from '../../utils'
 import { Identicon } from '../../components'
 import './balance.css'
@@ -10,7 +10,7 @@ import './balance.css'
 class Balance extends PureComponent {
   static propTypes = {
     loadingBalance: PropTypes.bool.isRequired,
-    balance: balanceSelectorsShapes.balanceShape,
+    balance: walletSelectors.balanceShape,
     failedFetchingBalance: PropTypes.bool.isRequired,
     fetchBalance: PropTypes.func.isRequired
   }
@@ -36,7 +36,7 @@ class Balance extends PureComponent {
         <br />
         <div className="Balance-message">
           {renderIf([loadingBalance], [balance], [failedFetchingBalance], {
-            loading: 'loading...',
+            loading: 'Loading...',
             done: (
               <span>
                 Welcome <Identicon seed="Placeholder" />, You have{' '}
@@ -64,11 +64,11 @@ class Balance extends PureComponent {
 
 export default connect(
   state => ({
-    loadingBalance: state.balance.loadingBalance,
-    balance: state.balance.balance,
-    failedFetchingBalance: state.balance.failedFetchingBalance
+    loadingBalance: state.wallet.loadingBalance,
+    balance: walletSelectors.getBalance(state),
+    failedFetchingBalance: state.wallet.failedFetchingBalance
   }),
   {
-    fetchBalance: balanceActions.fetchBalance
+    fetchBalance: walletActions.fetchBalance
   }
 )(Balance)
