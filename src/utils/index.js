@@ -6,6 +6,7 @@ import createReducer from './create-reducer'
 export { createFormGenerator, createReducer }
 
 // Import and export named
+export * from './actions'
 export * from './functional'
 export * from './no-ops'
 export * from './sagas'

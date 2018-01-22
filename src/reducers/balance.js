@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types'
 import { createReducer } from '../utils'
 import { balanceActions } from '../actions'
 
 // Reducer
 export default createReducer(
-  { loadingBalance: false, balance: 0 },
+  { loadingBalance: false, balance: null, failedFetchingBalance: false },
   {
     [balanceActions.RECEIVE_BALANCE]: (state, action) => ({
       ...state,
@@ -15,3 +16,9 @@ export default createReducer(
 // Selectors
 
 // Shapes
+export const balanceShape = PropTypes.shape({
+  length: PropTypes.number.isRequired,
+  negative: PropTypes.number.isRequired,
+  red: PropTypes.bool,
+  words: PropTypes.arrayOf(PropTypes.number).isRequired
+})

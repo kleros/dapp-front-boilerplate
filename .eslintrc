@@ -10,12 +10,14 @@
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
     "unicorn/no-fn-reference-in-iterator": 0,
+    "unicorn/catch-error-name": ["error", { "name": "err" }],
     "react/jsx-filename-extension": [
       2,
       {
         "extensions": [".js"]
       }
     ],
+    "react/jsx-no-bind": 2,
     "react/prefer-stateless-function": 2,
     "react/destructuring-assignment": [2, "always"],
     "react/prop-types": 2,

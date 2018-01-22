@@ -1,17 +1,21 @@
-import { call, put, takeLatest, fork } from 'redux-saga/effects'
-
-import { FETCH_BALANCE, receiveBalance } from '../actions/balance'
-import { fetchBalance } from './utils/fetch-balance'
+import { takeLatest, put } from 'redux-saga/effects'
+import unit from 'ethjs-unit'
+import { receiveAction, errorAction } from '../utils'
+import { balanceActions } from '../actions'
+import { eth } from '../bootstrap/kleros'
 
 /**
- * Fetches ethereum balance
+ * Fetches ethereum balance.
  */
-export function* getBalance() {
+export function* fetchBalance() {
   try {
-    const balance = yield call(fetchBalance)
-    yield put(receiveBalance(balance))
-  } catch (e) {
-    console.log(e)
+    const accounts = yield eth.accounts()
+    const balance = yield eth.getBalance(accounts[0])
+    unit.fromWei(balance, 'ether')
+
+    yield put(receiveAction(balanceActions.RECEIVE_BALANCE, { balance }))
+  } catch (err) {
+    yield put(errorAction(balanceActions.FAIL_FETCH_BALANCE, err))
   }
 }
 
@@ -20,5 +24,5 @@ export function* getBalance() {
  * @export default balanceSaga
  */
 export default function* balanceSaga() {
-  yield fork(takeLatest, FETCH_BALANCE, getBalance)
+  yield takeLatest(balanceActions.FETCH_BALANCE, fetchBalance)
 }
