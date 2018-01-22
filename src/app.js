@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Route } from 'react-router-dom'
 import Initializer from './bootstrap/initializer'
-import Home from './containers/home'
+import Balance from './containers/balance'
 import './app.css'
 
 const App = ({ store, history }) => (
@@ -17,7 +17,7 @@ const App = ({ store, history }) => (
             <title>Kleros Dapp</title>
           </Helmet>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Balance} />
           </Switch>
         </div>
       </ConnectedRouter>

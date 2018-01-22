@@ -12,8 +12,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { reduxForm, Field, formValues, isInvalid, submit } from 'redux-form'
-import { camelToTitleCase } from './strings'
 import { objMap } from './functional'
+import { camelToTitleCase } from './strings'
 
 // Validation Helpers
 const validatorNamer = name => v =>

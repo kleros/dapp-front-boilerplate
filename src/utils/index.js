@@ -1,8 +1,9 @@
 // Import defaults
+import createFormGenerator from './create-form-generator'
 import createReducer from './create-reducer'
 
 // Export defaults
-export { createReducer }
+export { createFormGenerator, createReducer }
 
 // Import and export named
 export * from './functional'

@@ -5,6 +5,7 @@ import { balanceActions } from '../../actions'
 
 class Balance extends PureComponent {
   static propTypes = {
+    loadingBalance: PropTypes.bool.isRequired,
     balance: PropTypes.number.isRequired,
     fetchBalance: PropTypes.func.isRequired
   }
@@ -15,9 +16,14 @@ class Balance extends PureComponent {
   }
 
   render() {
-    const { balance } = this.props
+    const { loadingBalance, balance } = this.props
     return (
-      <div>{balance ? <b>You have {balance} ETH.</b> : <b>loading...</b>}</div>
+      <div>
+        <b>Hello CryptoWorld</b>
+        <br />
+        <br />
+        {loadingBalance ? <b>loading...</b> : <b>You have {balance} ETH.</b>}
+      </div>
     )
   }
 }
