@@ -9,15 +9,9 @@ import { RequiresMetaMask } from '../components'
 
 class Initializer extends PureComponent {
   static propTypes = {
-    loadingAccounts: PropTypes.bool.isRequired,
-    account: walletSelectors.accountShape,
-    failedFetchingAccounts: PropTypes.bool.isRequired,
+    accounts: walletSelectors.accountsShape.isRequired,
     fetchAccounts: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired
-  }
-
-  static defaultProps = {
-    account: null
   }
 
   state = { isWeb3Loaded: eth.accounts !== undefined }
@@ -29,17 +23,12 @@ class Initializer extends PureComponent {
 
   render() {
     const { isWeb3Loaded } = this.state
-    const {
-      children,
-      loadingAccounts,
-      account,
-      failedFetchingAccounts
-    } = this.props
+    const { accounts, children } = this.props
 
     return renderIf(
-      [loadingAccounts],
-      [account],
-      [!isWeb3Loaded, failedFetchingAccounts],
+      [accounts.loading],
+      [accounts.data && accounts.data[0]],
+      [!isWeb3Loaded, accounts.failedLoading],
       {
         loading: 'Loading accounts...',
         done: children,
@@ -51,9 +40,7 @@ class Initializer extends PureComponent {
 
 export default connect(
   state => ({
-    loadingAccounts: state.wallet.loadingAccounts,
-    account: walletSelectors.getAccount(state),
-    failedFetchingAccounts: state.wallet.failedFetchingAccounts
+    accounts: state.wallet.accounts
   }),
   { fetchAccounts: walletActions.fetchAccounts }
 )(Initializer)

@@ -9,5 +9,6 @@ export { createFormGenerator, createReducer }
 export * from './actions'
 export * from './functional'
 export * from './no-ops'
+export * from './react-redux'
 export * from './sagas'
 export * from './strings'

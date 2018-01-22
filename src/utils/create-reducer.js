@@ -1,13 +1,12 @@
-import { objMap } from './functional'
 import { constantToCamelCase } from './strings'
 
 const automaticActionPluginMap = {
   CREATE_: { creating: true, failedCreating: false },
   RECEIVE_CREATED_: { creating: false, failedCreating: false },
   FAIL_CREATE_: { creating: false, failedCreating: true },
-  FETCH_: { loading: true, failedFetching: false },
-  RECEIVE_: { loading: false, failedFetching: false },
-  FAIL_FETCH_: { loading: false, failedFetching: true }
+  FETCH_: { loading: true, failedLoading: false },
+  RECEIVE_: { loading: false, failedLoading: false },
+  FAIL_FETCH_: { loading: false, failedLoading: true }
 }
 
 /**
@@ -31,13 +30,18 @@ export default function createReducer(initialState, reducerMap) {
         const resource = constantToCamelCase(action.type.slice(l), {
           capitalizeFirst: true
         })
+        const lResource = resource.toLowerCase()
+
         newState = {
           ...newState,
-          ...objMap(
-            automaticActionPluginMap[actionTypePrefix],
-            value => value,
-            { returnObj: true, transformKeyFunc: key => key + resource }
-          )
+          [lResource]: {
+            data:
+              actionTypePrefix === 'RECEIVE_' &&
+              (!reducerMap || !reducerMap[action.type])
+                ? action.payload[lResource]
+                : state[lResource].data,
+            ...automaticActionPluginMap[actionTypePrefix]
+          }
         }
         break
       }

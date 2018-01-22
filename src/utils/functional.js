@@ -24,28 +24,3 @@ export function objMap(
 
   return result
 }
-
-/**
- * Implements common rendering logic for loading and failures.
- * @export
- * @param {array} loadingValues - Array of booleans that indicate loading.
- * @param {array} values - Array of values.
- * @param {array} failedValues - Array of booleans that indicate failure.
- * @param {object} { loading, done, failed } - Renderables to render depending on conditions.
- * @returns {any} - A react renderable.
- */
-export function renderIf(
-  loadingValues,
-  values,
-  failedValues,
-  { loading, done, failed }
-) {
-  if (
-    failedValues.some(v => v) ||
-    !values.every(v => v !== null && v !== undefined)
-  )
-    return failed
-  if (loadingValues.some(v => v)) return loading
-
-  return done
-}

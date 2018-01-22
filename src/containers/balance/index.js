@@ -9,14 +9,8 @@ import './balance.css'
 
 class Balance extends PureComponent {
   static propTypes = {
-    loadingBalance: PropTypes.bool.isRequired,
-    balance: walletSelectors.balanceShape,
-    failedFetchingBalance: PropTypes.bool.isRequired,
+    balance: walletSelectors.balanceShape.isRequired,
     fetchBalance: PropTypes.func.isRequired
-  }
-
-  static defaultProps = {
-    balance: null
   }
 
   componentDidMount() {
@@ -25,7 +19,7 @@ class Balance extends PureComponent {
   }
 
   render() {
-    const { loadingBalance, balance, failedFetchingBalance } = this.props
+    const { balance } = this.props
 
     return (
       <div className="Balance">
@@ -35,27 +29,32 @@ class Balance extends PureComponent {
         <br />
         <br />
         <div className="Balance-message">
-          {renderIf([loadingBalance], [balance], [failedFetchingBalance], {
-            loading: 'Loading...',
-            done: (
-              <span>
-                Welcome <Identicon seed="Placeholder" />, You have{' '}
-                {balance && balance.toString()} ETH.
-              </span>
-            ),
-            failed: (
-              <span>
-                'There was an error fetching your balance. Make sure{' '}
-                <a
-                  className="Balance-message-link"
-                  href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                >
-                  MetaMask
-                </a>{' '}
-                is unlocked and refresh the page.'
-              </span>
-            )
-          })}
+          {renderIf(
+            [balance.loading],
+            [balance.data],
+            [balance.failedLoading],
+            {
+              loading: 'Loading...',
+              done: (
+                <span>
+                  Welcome <Identicon seed="Placeholder" />, You have{' '}
+                  {balance.data && balance.data.toString()} ETH.
+                </span>
+              ),
+              failed: (
+                <span>
+                  'There was an error fetching your balance. Make sure{' '}
+                  <a
+                    className="Balance-message-link"
+                    href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                  >
+                    MetaMask
+                  </a>{' '}
+                  is unlocked and refresh the page.'
+                </span>
+              )
+            }
+          )}
         </div>
       </div>
     )
@@ -64,9 +63,7 @@ class Balance extends PureComponent {
 
 export default connect(
   state => ({
-    loadingBalance: state.wallet.loadingBalance,
-    balance: walletSelectors.getBalance(state),
-    failedFetchingBalance: state.wallet.failedFetchingBalance
+    balance: state.wallet.balance
   }),
   {
     fetchBalance: walletActions.fetchBalance
