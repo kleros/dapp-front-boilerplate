@@ -1,9 +1,8 @@
 import Eth from 'ethjs'
-
 import { Kleros } from 'kleros-api'
-import * as errors from '../constants/errors'
+import { errorConstants } from '../constants'
 
-export const web3 =
+export const eth =
   window.web3 && window.web3.currentProvider
     ? new Eth(window.web3.currentProvider)
     : new Eth(
@@ -13,9 +12,8 @@ export const web3 =
             : process.env.DEV_ETHEREUM_PROVIDER
         )
       )
-
-if (!web3.currentProvider) {
-  throw new Error(errors.WEB3_NOT_RESOLVED)
+if (!eth.currentProvider) {
+  throw new Error(errorConstants.WEB3_NOT_RESOLVED)
 }
 
-export default new Kleros(web3.currentProvider, process.env.STORE_PROVIDER)
+export default new Kleros(eth.currentProvider, process.env.STORE_PROVIDER)

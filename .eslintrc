@@ -8,16 +8,21 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "unicorn/no-fn-reference-in-iterator": 0,
     "arrow-body-style": ["error", "as-needed"],
+    "unicorn/no-fn-reference-in-iterator": 0,
     "react/jsx-filename-extension": [
       2,
       {
         "extensions": [".js"]
       }
     ],
-    "react/forbid-prop-types": 2,
     "react/prefer-stateless-function": 2,
+    "react/destructuring-assignment": [2, "always"],
+    "react/prop-types": 2,
+    "react/forbid-prop-types": 2,
+    "react/no-unused-prop-types": 2,
+    "react/require-default-props": 2,
+    "react/default-props-match-prop-types": 2,
     "require-jsdoc": [
       "error",
       {

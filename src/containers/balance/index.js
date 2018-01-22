@@ -1,31 +1,27 @@
 import React, { PureComponent } from 'react'
-import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
-import { fetchBalance } from '../../actions/balance'
+import { balanceActions } from '../../actions'
 
 class Balance extends PureComponent {
+  static propTypes = {
+    balance: PropTypes.number.isRequired,
+    fetchBalance: PropTypes.func.isRequired
+  }
+
   componentDidMount() {
-    const { balance } = this.props.actions
-    balance.fetchBalance()
+    const { fetchBalance } = this.props
+    fetchBalance()
   }
 
   render() {
-    const { balance = 0 } = this.props
+    const { balance } = this.props
     return (
       <div>{balance ? <b>You have {balance} ETH.</b> : <b>loading...</b>}</div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  balance: state.balance
-})
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    balance: bindActionCreators({ fetchBalance }, dispatch)
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Balance)
+export default connect(state => ({ balance: state.balance.balance }), {
+  fetchBalance: balanceActions.fetchBalance
+})(Balance)
