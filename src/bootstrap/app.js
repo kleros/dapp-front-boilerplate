@@ -4,11 +4,11 @@ import { Helmet } from 'react-helmet'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Route } from 'react-router-dom'
-import Initializer from './bootstrap/initializer'
-import Balance from './containers/balance'
+import Initializer from './initializer'
+import Balance from '../containers/balance'
 import './app.css'
 
-const App = ({ store, history }) => (
+const App = ({ store, history, testElement }) => (
   <Provider store={store}>
     <Initializer>
       <ConnectedRouter history={history}>
@@ -19,6 +19,7 @@ const App = ({ store, history }) => (
           <Switch>
             <Route exact path="/" component={Balance} />
           </Switch>
+          {testElement}
         </div>
       </ConnectedRouter>
     </Initializer>
@@ -30,7 +31,14 @@ App.propTypes = {
   store: PropTypes.shape({}).isRequired,
 
   // Router
-  history: PropTypes.shape({}).isRequired
+  history: PropTypes.shape({}).isRequired,
+
+  // Testing
+  testElement: PropTypes.element
+}
+
+App.defaultProps = {
+  testElement: null
 }
 
 export default App

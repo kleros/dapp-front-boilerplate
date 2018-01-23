@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
 import { reducer as form } from 'redux-form'
-import wallet, * as walletSelectors from './wallet'
+import wallet from './wallet'
 
 // Export root reducer
 export default combineReducers({
@@ -9,6 +9,3 @@ export default combineReducers({
   form,
   wallet
 })
-
-// Export shapes
-export { walletSelectors }

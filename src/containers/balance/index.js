@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { walletActions } from '../../actions'
-import { walletSelectors } from '../../reducers'
-import { renderIf } from '../../utils'
-import { Identicon } from '../../components'
+import * as walletActions from '../../actions/wallet'
+import * as walletSelectors from '../../reducers/wallet'
+import { renderIf } from '../../utils/react-redux'
+import Identicon from '../../components/identicon'
 import './balance.css'
 
 class Balance extends PureComponent {
@@ -43,14 +43,14 @@ class Balance extends PureComponent {
               ),
               failed: (
                 <span>
-                  'There was an error fetching your balance. Make sure{' '}
+                  There was an error fetching your balance. Make sure{' '}
                   <a
                     className="Balance-message-link"
                     href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
                   >
                     MetaMask
                   </a>{' '}
-                  is unlocked and refresh the page.'
+                  is unlocked and refresh the page.
                 </span>
               )
             }

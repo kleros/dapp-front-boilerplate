@@ -18,7 +18,9 @@ export function objMap(
   for (let i = 0; i < keysLen; i++) {
     const res = func(obj[keys[i]], keys[i])
     if (returnObj)
-      result[transformKeyFunc ? transformKeyFunc(keys[i]) : keys[i]] = res
+      result[
+        transformKeyFunc ? transformKeyFunc(obj[keys[i]], keys[i]) : keys[i]
+      ] = res
     else result.push(res)
   }
 

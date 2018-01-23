@@ -33,7 +33,7 @@
           "MethodDefinition": false,
           "ClassDeclaration": false,
           "ArrowFunctionExpression": false,
-          "FunctionExpression": true
+          "FunctionExpression": false
         }
       }
     ],
@@ -59,6 +59,7 @@
         "requireParamDescription": true,
         "requireReturnDescription": true
       }
-    ]
+    ],
+    "standard/computed-property-even-spacing": 0
   }
 }

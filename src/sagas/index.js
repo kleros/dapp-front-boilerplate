@@ -7,7 +7,7 @@ import walletSaga from './wallet'
  * @param {object} saga - A generator function.
  * @returns {object} - A new generator function with the added functionality.
  */
-function makeRestartable(saga) {
+export function makeRestartable(saga) {
   return function*() {
     // eslint-disable-next-line no-constant-condition
     while (true) {

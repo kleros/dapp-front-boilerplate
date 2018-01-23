@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { walletActions } from '../actions'
-import { walletSelectors } from '../reducers'
+import * as walletActions from '../actions/wallet'
+import * as walletSelectors from '../reducers/wallet'
 import { eth } from './kleros'
-import { renderIf } from '../utils'
-import { RequiresMetaMask } from '../components'
+import { renderIf } from '../utils/react-redux'
+import RequiresMetaMask from '../components/requires-meta-mask'
 
 class Initializer extends PureComponent {
   static propTypes = {

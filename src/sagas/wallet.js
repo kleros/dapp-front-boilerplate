@@ -1,9 +1,10 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import unit from 'ethjs-unit'
-import { receiveAction, errorAction } from '../utils'
-import { walletActions } from '../actions'
-import { walletSelectors } from '../reducers'
+import { receiveAction, errorAction } from '../utils/actions'
+import * as walletActions from '../actions/wallet'
+import * as walletSelectors from '../reducers/wallet'
 import { eth } from '../bootstrap/kleros'
+import { ETH_NO_ACCOUNTS } from '../constants/errors'
 
 /**
  * Fetches the current wallet's accounts.
@@ -11,7 +12,7 @@ import { eth } from '../bootstrap/kleros'
 export function* fetchAccounts() {
   try {
     const accounts = yield call(eth.accounts)
-    if (!accounts[0]) throw new Error('No accounts.')
+    if (!accounts[0]) throw new Error(ETH_NO_ACCOUNTS)
 
     yield put(receiveAction(walletActions.RECEIVE_ACCOUNTS, { accounts }))
   } catch (err) {
@@ -26,9 +27,12 @@ export function* fetchBalance() {
   try {
     const account = yield select(walletSelectors.getAccount)
     const balance = yield call(eth.getBalance, account)
-    unit.fromWei(balance, 'ether')
 
-    yield put(receiveAction(walletActions.RECEIVE_BALANCE, { balance }))
+    yield put(
+      receiveAction(walletActions.RECEIVE_BALANCE, {
+        balance: unit.fromWei(balance, 'ether')
+      })
+    )
   } catch (err) {
     yield put(errorAction(walletActions.FAIL_FETCH_BALANCE, err))
   }
