@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as walletActions from '../actions/wallet'
 import * as walletSelectors from '../reducers/wallet'
-import { eth } from './kleros'
+import { eth } from './dapp-api'
 import { renderIf } from '../utils/react-redux'
 import RequiresMetaMask from '../components/requires-meta-mask'
 

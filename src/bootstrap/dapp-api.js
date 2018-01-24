@@ -13,5 +13,6 @@ else
       : process.env.REACT_APP_DEV_ETHEREUM_PROVIDER
   )
 
-export { eth }
-export default new Kleros(eth.currentProvider, process.env.STORE_PROVIDER)
+const kleros = new Kleros(eth.currentProvider, process.env.STORE_PROVIDER)
+
+export { eth, kleros }

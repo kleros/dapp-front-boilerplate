@@ -3,7 +3,7 @@ import unit from 'ethjs-unit'
 import { receiveAction, errorAction } from '../utils/actions'
 import * as walletActions from '../actions/wallet'
 import * as walletSelectors from '../reducers/wallet'
-import { eth } from '../bootstrap/kleros'
+import { eth } from '../bootstrap/dapp-api'
 import { ETH_NO_ACCOUNTS } from '../constants/errors'
 
 /**
