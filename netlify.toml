@@ -1,0 +1,17 @@
+[build]
+  publish = "build/"
+  command = "yarn build"
+
+# Production context: All deploys to the main
+# repository branch will inherit these settings.
+[context.production]
+  [context.production.environment]
+    NODE_VERSION = "9.4.0"
+    YARN_FLAGS = "--no-ignore-optional"
+
+# Develop Branch Deploy context: All deploys that are not in
+# an active Deploy Preview will inherit these settings.
+[context.develop]
+  [context.develop.environment]
+    NODE_VERSION = "9.4.0"
+    YARN_FLAGS = "--no-ignore-optional"
