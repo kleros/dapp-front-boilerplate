@@ -10,6 +10,4 @@ else if (window.web3 && window.web3.currentProvider)
   web3 = new Web3(window.web3.currentProvider)
 else web3 = new Web3.providers.HttpProvider(ETHEREUM_PROVIDER)
 
-console.log(web3)
-
 export { web3, ETHEREUM_PROVIDER }
